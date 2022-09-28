@@ -27,7 +27,7 @@ function feedForward(inputs=[], target=0, epochs=1){
         }
         console.log(`Multiply: ${multiply}`);
         let sum = funcSum(multiply);
-        let output = parseFloat(relu(sum)).toFixed(4);
+        let output = parseFloat(leakyRelu(sum)).toFixed(4);
 
         let error = parseFloat(Math.abs(target - output)).toFixed(4);
         for(let j=0; j<inputs.length; j++){
@@ -52,6 +52,9 @@ function relu(n=0){
     return Math.max(n,0);
 }
 //Linear Retificada com Vazamento (LEAKY RELU): Retorno Valores maiores que 0
+function leakyRelu(n=0){
+    return Math.max(n,0.01);
+}
 //Passo Biário: Retorno 0 ou 1
 
 feedForward([0], 0.1, 800);
