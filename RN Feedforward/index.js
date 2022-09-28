@@ -13,16 +13,12 @@ function feedForward(inputs=[], target=0, epochs=1){
     if(target<=0) target = 0.1;
     else if(target>1) target = 1;
 
-    console.log(`Ciclos: ${epochs}`);
-    console.log(`Alvos: ${target}`);
-
     let weights = [];
     for(let i=0; i<inputs.length; i++){
         weights.push(Math.random());
     }
 
-    console.log(`Weights: ${weights}`);
-
+   
     for(let i=1; i<=epochs; i++){
         let multiply = [];
         for(let j=0; j<inputs.length; j++){
@@ -31,7 +27,7 @@ function feedForward(inputs=[], target=0, epochs=1){
         }
         console.log(`Multiply: ${multiply}`);
         let sum = funcSum(multiply);
-        let output = parseFloat(tanh(sum)).toFixed(4);
+        let output = parseFloat(sigmoid(sum)).toFixed(4);
 
         let error = parseFloat(Math.abs(target - output)).toFixed(4);
         for(let j=0; j<inputs.length; j++){
@@ -48,6 +44,9 @@ function tanh(n=0) {
     return Math.sinh(n) / Math.cosh(n); //Tangente Hiperbólica
 }
 //Sigmóide: Retorno entre 0 e 1
+function sigmoid(n=0){
+    return 1/(1 + Math.pow(Math.E, -n));
+}
 //Linear Retificada (RELU): Retorno Valores Nulos e Positivos
 //Linear Retificada com Vazamento (LEAKY RELU): Retorno Valores maiores que 0
 //Passo Biário: Retorno 0 ou 1
