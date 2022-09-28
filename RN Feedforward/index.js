@@ -9,7 +9,8 @@ function gradientDescent(n=0) {
 }
 
 //Função FeedForward
-function feedForward(inputs=[], target=0, epochs=1){
+function feedForward(inputs=[], target=0, epochs=1, activation='sigmoid'){
+    console.log(`Função de Ativação: ${activation}`);
     if(target<=0) target = 0.1;
     else if(target>1) target = 1;
 
@@ -27,8 +28,16 @@ function feedForward(inputs=[], target=0, epochs=1){
         }
         console.log(`Multiply: ${multiply}`);
         let sum = funcSum(multiply);
-        let output = parseFloat(binaryStep(sum)).toFixed(4);
-
+        let output = 0;
+        switch(activation){
+            case 'tanh': output = parseFloat(tanh(sum)).toFixed(4); break;
+            case 'sigmoid': output = parseFloat(sigmoid(sum)).toFixed(4); break;
+            case 'relu': output = parseFloat(relu(sum)).toFixed(4); break;
+            case 'leakyrelu': output = parseFloat(leakyRelu(sum)).toFixed(4); break;
+            case 'binaryStep': output = parseFloat(binaryStep(sum)).toFixed(4); break;
+            default: output = parseFloat(sigmoid(sum)).toFixed(4); break;
+        }
+        
         let error = parseFloat(Math.abs(target - output)).toFixed(4);
         for(let j=0; j<inputs.length; j++){
             weights[j] += inputs[j] * gradientDescent(error);
@@ -61,4 +70,4 @@ function binaryStep(n=0){
 }
 
 //
-feedForward([0], 0.1, 800);
+feedForward([0], 0.1, 800, 'tanh');
