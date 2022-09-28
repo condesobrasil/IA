@@ -27,7 +27,7 @@ function feedForward(inputs=[], target=0, epochs=1){
         }
         console.log(`Multiply: ${multiply}`);
         let sum = funcSum(multiply);
-        let output = parseFloat(leakyRelu(sum)).toFixed(4);
+        let output = parseFloat(binaryStep(sum)).toFixed(4);
 
         let error = parseFloat(Math.abs(target - output)).toFixed(4);
         for(let j=0; j<inputs.length; j++){
@@ -56,5 +56,9 @@ function leakyRelu(n=0){
     return Math.max(n,0.01);
 }
 //Passo Biário: Retorno 0 ou 1
+function binaryStep(n=0){
+    return (n>=0) ? 1 : 0;
+}
 
+//
 feedForward([0], 0.1, 800);
