@@ -31,7 +31,7 @@ function feedForward(inputs=[], target=0, epochs=1){
         }
         console.log(`Multiply: ${multiply}`);
         let sum = funcSum(multiply);
-        let output = parseFloat(Math.tanh(sum)).toFixed(4);
+        let output = parseFloat(tanh(sum)).toFixed(4);
 
         let error = parseFloat(Math.abs(target - output)).toFixed(4);
         for(let j=0; j<inputs.length; j++){
@@ -43,5 +43,13 @@ function feedForward(inputs=[], target=0, epochs=1){
     }
 }
 
+//Tangente Hiperbólica: Retorno entre -1 e 1
+function tanh(n=0) {
+    return Math.sinh(n) / Math.cosh(n); //Tangente Hiperbólica
+}
+//Sigmóide: Retorno entre 0 e 1
+//Linear Retificada (RELU): Retorno Valores Nulos e Positivos
+//Linear Retificada com Vazamento (LEAKY RELU): Retorno Valores maiores que 0
+//Passo Biário: Retorno 0 ou 1
 
 feedForward([0], 0.1, 800);
