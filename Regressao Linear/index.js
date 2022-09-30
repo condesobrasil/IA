@@ -30,12 +30,18 @@ function media(x=[]){
 }
 
 //RESULTADOS PARA REGRESSÃO LINEAR
-function resultados(x=[], y=[], p){
+function resultados(x=[], y=[], p=0){
     const resultado1 = (somatorio(x) * somatorio(y)) / x.length;
+    console.log("Resultado1: "+resultado1);
     const resultado2 = (somatorio(x) * somatorio(x)) / x.length;
-    const resultado3 = somatorio(produto(x,y)) - resultado1;
+    console.log("Resultado2: "+resultado2);
+    const resultado3 = somatorio(produto(x, y)) - resultado1;
+    console.log("Resultado3: "+resultado3);
     const resultado4 = resultado3 / (somatorio(quadrados(x)) - resultado2);
+    console.log("Resultado4: "+resultado4);
     const resultado5 = media(y) - (resultado4 * media(x));
+    console.log("Resultado5: "+resultado5);
+    console.log("Retorno: "+((resultado4 * p) + resultado5).toFixed(0));
 
     return ((resultado4 * p) + resultado5).toFixed(0);
 }
@@ -43,32 +49,36 @@ function resultados(x=[], y=[], p){
 //REGRESSÃO LINEAR
 function regressao_linear(eixoX=[],eixoY=[]){
     const tamX = eixoX.length;
+    console.log("TAMX: "+tamX);
     const tamY = eixoY.length;
+    console.log("TAMY: "+tamY);
 
     const tempX = eixoX.slice(0, tamY);
+    console.log("TempX: "+tempX);
     const tempY = eixoY;
+    console.log("TempY: "+tempY);
 
     const dif = tamX - tamY;
+    console.log("Dif: "+dif);
+
     if(dif > 0){
+        console.log("DIF > 0");
         let regressoes = [];
+        console.log("Regressoes: "+regressoes);
         for(let i=0; i<dif; i++){
+            console.log("I: "+i);
             const temp = resultados(tempX, tempY, eixoX[tamY+i]);
+            console.log("Temp: "+temp);
             regressoes.push(temp);
         }
+        console.log("Regressoes: "+regressoes);
         const novoY = tempY.concat(regressoes);
         console.log(` eixo X: ${eixoX}`);
-        console.log(` eixo Y: ${eixoY}`);
+        console.log(` eixo Y: ${novoY}`);
+    }else{
+        console.log("DIF <= 0");
     }
 }
 
-var x1 = [2,4,6];
-var y1 = [1,3,5];
-
-console.log("X1: "+x1+", Y1: "+y1);
-console.log("Produto de X1 e Y1: "+produto(x1,y1));
-console.log("Quadrados de X1: "+quadrados(x1));
-console.log("Somatório de X1: "+somatorio(x1));
-console.log("Média de X1: "+media(x1));
-//console.log("RESULTADO");
-
-//regressao_linear([1,2,3,4,5],[10,20,30,40]);
+console.log("RESULTADO -----------");
+regressao_linear([1,2,3,4,5],[10,20,30,40]);
